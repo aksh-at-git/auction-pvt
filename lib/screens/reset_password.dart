@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import '../screens/signin_screen.dart';
 import '../screens/signup_screen.dart';
 import '../screens/home_screen.dart';
@@ -48,7 +49,11 @@ class _ResetPasswordState extends State<ResetPassword> {
                 const SizedBox(
                   height: 20,
                 ),
-                firebaseUIButton(context, "Reset Password", () {})
+                firebaseUIButton(context, "Reset Password", () {
+                  FirebaseAuth.instance
+                      .sendPasswordResetEmail(email: _emailTextController.text);
+                  // .then((value) => Navigator.of(context).pop());
+                })
               ],
             ),
           ))),
