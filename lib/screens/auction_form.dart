@@ -127,7 +127,15 @@ class _AuctionFormState extends State<AuctionForm> {
 
                     final imageURL = resBody["data"]["link"];
 
-                    createItem(description: description, bidPrice: 0, bidder: "", imageURL: imageURL, title: title, seller: FirebaseAuth.instance.currentUser!.email!);
+                    createItem(
+                      description: description, 
+                      bidPrice: 0, 
+                      bidder: "", 
+                      imageURL: imageURL,
+                      title: title,
+                      seller: FirebaseAuth.instance.currentUser!.email!,
+                      timestamp: Timestamp.fromDate(pickedDateTime!));
+                      
                     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                         content: Text("Item added to auctions")));
 
@@ -155,7 +163,8 @@ Future createItem(
     required String bidder,
     required String imageURL,
     required String title,
-    required String seller}) async {
+    required String seller,
+    required Timestamp timestamp}) async {
   final docUser = FirebaseFirestore.instance.collection('auction_items').doc();
 
   final auctionItem = AuctionItem(
@@ -165,7 +174,8 @@ Future createItem(
       bidder: bidder,
       imageURL: imageURL,
       title: title,
-      seller: seller);
+      seller: seller, 
+      timestamp: timestamp);
 
   final json = auctionItem.toJson();
 
@@ -199,6 +209,7 @@ class AuctionItem {
   final String imageURL;
   final String seller;
   final String title;
+  final Timestamp timestamp; 
 
   AuctionItem({
     this.id = '',
@@ -208,6 +219,7 @@ class AuctionItem {
     required this.imageURL,
     required this.title,
     required this.seller,
+    required this.timestamp, 
   });
 
   Map<String, dynamic> toJson() => {
@@ -217,6 +229,7 @@ class AuctionItem {
         'bidder': bidder,
         'imageURL': imageURL,
         'title': title,
-        'seller': seller
+        'seller': seller,
+        'timestamp': timestamp
       };
 }
