@@ -1,10 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 import 'package:flutter/material.dart';
-import 'homepage.dart';
-import 'current_auctions.dart';
-import 'future_auctions.dart';
-import 'past_auctions.dart';
 import './screens/signin_screen.dart';
 
 void main() async {
