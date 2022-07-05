@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+// ignore: unused_import
 import 'firebase_options.dart';
 import 'package:flutter/material.dart';
 import './screens/signin_screen.dart';
@@ -10,7 +11,7 @@ void main() async {
   await Firebase.initializeApp();
 
   runApp(
-    MaterialApp(
+    const MaterialApp(
       home: MainPage(),
     ),
   );
