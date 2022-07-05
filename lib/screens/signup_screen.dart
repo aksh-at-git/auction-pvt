@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import '../screens/signin_screen.dart';
 import '../screens/reset_password.dart';
@@ -61,16 +62,28 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 const SizedBox(
                   height: 20,
                 ),
-                firebaseUIButton(context, "Sign Up", () {
-                  FirebaseAuth.instance
-                      .createUserWithEmailAndPassword(
-                          email: _emailTextController.text,
-                          password: _passwordTextController.text)
-                      .then((value) {
-                    print("Created New Account");
-                  }).onError((error, stackTrace) {
-                    print("Error ${error.toString()}");
-                  });
+                firebaseUIButton(context, "Sign Up", () async {
+                  try {
+                    await FirebaseAuth.instance.createUserWithEmailAndPassword(
+                        email: _emailTextController.text,
+                        password: _passwordTextController.text);
+                    final docUser = await FirebaseFirestore.instance
+                        .collection('users')
+                        .doc();
+
+                    final json = {
+                      'email': _emailTextController.text,
+                      'username': _userNameTextController.text,
+                      'bought_items': [],
+                    };
+
+                    await docUser.set(json);
+                    // ignore: use_build_context_synchronously
+                    Navigator.pushReplacement(context,
+                        MaterialPageRoute(builder: (context) => HomeScreen()));
+                  } on Exception catch (e) {
+                    print('failed to create user $e');
+                  }
                 }),
                 signInOption()
               ],
