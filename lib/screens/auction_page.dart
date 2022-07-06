@@ -60,20 +60,20 @@ class _AuctionPageState extends State<AuctionPage> {
         children: [
           Row(mainAxisAlignment: MainAxisAlignment.center, children: [
             Container(
-                padding: EdgeInsets.all(20),
+                padding: const EdgeInsets.all(20),
                 // color: Colors.amberAccent,
                 child: Text(
                   "Title: $title",
-                  style: TextStyle(fontSize: 20),
+                  style: const TextStyle(fontSize: 20),
                 )),
           ]),
           Row(mainAxisAlignment: MainAxisAlignment.center, children: [
             Container(
-                padding: EdgeInsets.all(20),
+                padding: const EdgeInsets.all(20),
                 // color: Colors.amberAccent,
                 child: Text(
                   "Seller Email: $sellerEmail",
-                  style: TextStyle(fontSize: 20),
+                  style: const TextStyle(fontSize: 20),
                 )),
           ]),
           Row(mainAxisAlignment: MainAxisAlignment.center, children: [
@@ -99,11 +99,11 @@ class _AuctionPageState extends State<AuctionPage> {
                     ? true
                     : false,
                 child: Container(
-                    padding: EdgeInsets.all(8),
+                    padding: const EdgeInsets.all(8),
                     // color: Colors.amberAccent,
                     child: Text(
                       "Bidder Email: $bidderEmail",
-                      style: TextStyle(fontSize: 20),
+                      style: const TextStyle(fontSize: 20),
                     ))),
           ]),
           Row(mainAxisAlignment: MainAxisAlignment.center, children: [
@@ -116,22 +116,22 @@ class _AuctionPageState extends State<AuctionPage> {
                     ? true
                     : false,
                 child: Container(
-                    padding: EdgeInsets.all(12),
+                    padding: const EdgeInsets.all(12),
                     // color: Colors.amberAccent,
                     child: Text(
                       "Current Bid Price: $bidPrice",
-                      style: TextStyle(fontSize: 20),
+                      style: const TextStyle(fontSize: 20),
                     ))),
           ]),
           Row(mainAxisAlignment: MainAxisAlignment.start, children: [
             Visibility(
                 visible: true,
                 child: Container(
-                    padding: EdgeInsets.all(12),
+                    padding: const EdgeInsets.all(12),
                     // color: Colors.amberAccent,
                     child: Text(
                       "Auction Start Time: $formattedDate at $formattedTime",
-                      style: TextStyle(fontSize: 20),
+                      style: const TextStyle(fontSize: 20),
                     ))),
           ]),
           Row(mainAxisAlignment: MainAxisAlignment.center, children: [
@@ -143,11 +143,11 @@ class _AuctionPageState extends State<AuctionPage> {
                     ? true
                     : false,
                 child: Container(
-                    padding: EdgeInsets.all(8),
+                    padding: const EdgeInsets.all(8),
                     // color: Colors.amberAccent,
                     child: Text(
                       "Bidder Email: $bidderEmail",
-                      style: TextStyle(fontSize: 20),
+                      style: const TextStyle(fontSize: 20),
                     ))),
           ]),
           Row(mainAxisAlignment: MainAxisAlignment.center, children: [
@@ -159,11 +159,11 @@ class _AuctionPageState extends State<AuctionPage> {
                     ? true
                     : false,
                 child: Container(
-                    padding: EdgeInsets.all(12),
+                    padding: const EdgeInsets.all(12),
                     // color: Colors.amberAccent,
                     child: Text(
                       "Bid Price: $bidPrice",
-                      style: TextStyle(fontSize: 20),
+                      style: const TextStyle(fontSize: 20),
                     ))),
           ]),
           Visibility(
@@ -180,8 +180,9 @@ class _AuctionPageState extends State<AuctionPage> {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: <Widget>[
                   FloatingActionButton.extended(
+                    heroTag: "btn1",
                     onPressed: () => placeBid(context, 100, bidPrice, id),
-                    label: Text(
+                    label: const Text(
                       " 100",
                       style: TextStyle(fontSize: 18),
                     ),
@@ -191,10 +192,11 @@ class _AuctionPageState extends State<AuctionPage> {
                     ),
                   ),
                   FloatingActionButton.extended(
+                    heroTag: "btn2",
                     onPressed: () => placeBid(context, 500, bidPrice, id),
-                    label: Text(
+                    label: const Text(
                       " 500",
-                      style: TextStyle(fontSize: 18),
+                      style:  TextStyle(fontSize: 18),
                     ),
                     icon: const Icon(
                       Icons.add,
@@ -202,8 +204,9 @@ class _AuctionPageState extends State<AuctionPage> {
                     ),
                   ),
                   FloatingActionButton.extended(
+                    heroTag: "btn3",
                     onPressed: () => placeBid(context, 1000, bidPrice, id),
-                    label: Text(
+                    label: const Text(
                       " 1000",
                       style: TextStyle(fontSize: 18),
                     ),
@@ -230,7 +233,7 @@ Future<int> placeBid(BuildContext context, int bidIncrement,
     DocumentSnapshot documentSnapshot = await transaction.get(docRef);
     if (documentSnapshot["bidPrice"] > currentBidPrice + bidIncrement) {
       ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text("You missed the shot")));
+          .showSnackBar(const SnackBar(content: const Text("You missed the shot")));
       return 0;
     }
     await transaction.update(docRef, {
@@ -238,7 +241,7 @@ Future<int> placeBid(BuildContext context, int bidIncrement,
       "bidder": FirebaseAuth.instance.currentUser!.email
     });
     ScaffoldMessenger.of(context)
-        .showSnackBar(SnackBar(content: Text("Successfully placed bid")));
+        .showSnackBar(const SnackBar(content: const Text("Successfully placed bid")));
     return 1;
   });
   return 0;
