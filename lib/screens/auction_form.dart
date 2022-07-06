@@ -17,7 +17,7 @@ class _AuctionFormState extends State<AuctionForm> {
   DateTime? pickedDate;
   TimeOfDay? pickedTimeOfDay;
   DateTime? pickedDateTime;
-  String description = ''; 
+  String description = '';
   String title = '';
 
   final controller = TextEditingController();
@@ -58,12 +58,11 @@ class _AuctionFormState extends State<AuctionForm> {
               onClick: () => pickImage()),
           const SizedBox(height: 10),
           TextFormField(
-            decoration: const InputDecoration(
-              border: OutlineInputBorder(),
-              hintText: 'Enter Title',
-            ),
-            onChanged: (value) => setState(() => title = value)
-          ),
+              decoration: const InputDecoration(
+                border: OutlineInputBorder(),
+                hintText: 'Enter Title',
+              ),
+              onChanged: (value) => setState(() => title = value)),
           const SizedBox(height: 10),
           TextFormField(
             decoration: const InputDecoration(
@@ -128,14 +127,14 @@ class _AuctionFormState extends State<AuctionForm> {
                     final imageURL = resBody["data"]["link"];
 
                     createItem(
-                      description: description, 
-                      bidPrice: 0, 
-                      bidder: "", 
-                      imageURL: imageURL,
-                      title: title,
-                      seller: FirebaseAuth.instance.currentUser!.email!,
-                      timestamp: Timestamp.fromDate(pickedDateTime!));
-                      
+                        description: description,
+                        bidPrice: 0,
+                        bidder: "",
+                        imageURL: imageURL,
+                        title: title,
+                        seller: FirebaseAuth.instance.currentUser!.email!,
+                        timestamp: Timestamp.fromDate(pickedDateTime!));
+
                     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                         content: Text("Item added to auctions")));
 
@@ -148,11 +147,11 @@ class _AuctionFormState extends State<AuctionForm> {
               child: const Text('Submit'))
         ],
       ),
-      floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          child: const Icon(Icons.add)),
+      // floatingActionButton: FloatingActionButton(
+      //     onPressed: () {
+      //       Navigator.pop(context);
+      //     },
+      //     child: const Icon(Icons.add)),
     );
   }
 }
@@ -174,7 +173,7 @@ Future createItem(
       bidder: bidder,
       imageURL: imageURL,
       title: title,
-      seller: seller, 
+      seller: seller,
       timestamp: timestamp);
 
   final json = auctionItem.toJson();
@@ -209,7 +208,7 @@ class AuctionItem {
   final String imageURL;
   final String seller;
   final String title;
-  final Timestamp timestamp; 
+  final Timestamp timestamp;
 
   AuctionItem({
     this.id = '',
@@ -219,7 +218,7 @@ class AuctionItem {
     required this.imageURL,
     required this.title,
     required this.seller,
-    required this.timestamp, 
+    required this.timestamp,
   });
 
   Map<String, dynamic> toJson() => {
